@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Valentine?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body class="min-h-screen flex items-center justify-center font-['Press_Start_2P'] overflow-hidden bg-repeat" style="
+    background-image: url('https://media.istockphoto.com/id/1202771528/vector/valentines-day-seamless-pattern-with-hearts-word-love-pixel-art-90s-style.jpg?s=612x612&w=0&k=20&c=NzIOr8XdIpeqlipXNtjEaddfimLZEt6U7oFI52H5ZMw=');
+    background-size: auto;
+    background-position: center;
+  ">
+
+    <!-- Envelope Screen -->
+    <div id="envelope" class="text-center transition-all duration-700 ease-in-out opacity-100 scale-100 ">
+        <div class="bg-white p-10 rounded-3xl shadow-xl cursor-pointer hover:scale-105 transition border-4 border-black shadow-[6px_6px_0_#000]"
+            onclick="openLetter()">
+            <p class="text-5xl">💌</p>
+            <p class="mt-4 text-xl font-semibold text-pink-600">Open Me</p>
+        </div>
+    </div>
+
+    <!-- Letter Screen -->
+    <div id="letter" class="hidden opacity-0 translate-y-10 transition-all duration-700 ease-in-out">
+        <div
+            class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl text-center max-w-md border-4 border-black shadow-[6px_6px_0_#000]">
+            <img src="https://media.tenor.com/n-vVxPSyZwkAAAAM/wink-cat.gif" alt="Cute gif"
+                class="mx-auto rounded-xl mb-6" />
+
+            <h1 class="text-xl md:text-2xl text-pink-600 mb-6 leading-relaxed">
+                Will you be my Valentine?
+            </h1>
+
+            <div class="flex justify-center gap-4">
+                <button id="yesBtn" onclick="yesClicked()"
+                    class="bg-pink-500 text-white px-6 py-4 rounded-lg hover:bg-pink-600 transition text-sm md:text-base border-4 border-black">
+                    Yes
+                </button>
+
+                <button id="noBtn" onclick="noClicked()"
+                    class="bg-gray-500 text-white px-6 py-4 rounded-lg hover:bg-gray-600 transition text-sm md:text-base border-4 border-black transition-transform duration-200 ease-out">
+                    No </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+
+        function openLetter() {
+            const envelope = document.getElementById('envelope');
+            const letter = document.getElementById('letter');
+
+            // Animate envelope out
+            envelope.classList.add('opacity-0', 'scale-75');
+
+            // After envelope animation, show letter
+            setTimeout(() => {
+                envelope.classList.add('hidden');
+                letter.classList.remove('hidden');
+
+                // trigger letter animation
+                setTimeout(() => {
+                    letter.classList.remove('opacity-0', 'translate-y-10');
+                }, 50);
+            }, 600);
+        }
+
+        function yesClicked() {
+            const gifImg = document.querySelector('#letter img');
+            gifImg.src =
+                'https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyZHprdWJ3dGN2aHplNHhmNTM1eTZtdzJ4bWZ0ZDAxc3p4dDFocmhrNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/2zoFXxGEQRR4DknVVa/giphy-downsized.gif';
+
+            const title = document.querySelector('#letter h1');
+            title.textContent = 'YAY!!!';
+
+            const buttonsDiv = document.querySelector('#letter .flex');
+            buttonsDiv.classList.add('hidden');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'mt-4';
+            messageDiv.innerHTML =
+                '<p class="text-xl text-gray-700">Us in another universe as cats</p>';
+
+            buttonsDiv.parentNode.appendChild(messageDiv);
+        }
+
+        function noClicked() {
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            const letterBox = document.querySelector('#letter .max-w-md');
+
+            const boxRect = letterBox.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Calculate safe movement area
+            const maxX = boxRect.width - btnRect.width - 20;
+            const maxY = boxRect.height - btnRect.height - 20;
+
+            const x = Math.random() * maxX - maxX / 2;
+            const y = Math.random() * maxY - maxY / 2;
+
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+            noClickCount++;
+
+            if (noClickCount >= 18) {
+                noBtn.textContent = "Yes";
+                noBtn.className = yesBtn.className;
+                noBtn.style.transform = "translate(0, 0)";
+                noBtn.onclick = yesClicked;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
