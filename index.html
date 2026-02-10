@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png"
+        href="https://static.vecteezy.com/system/resources/previews/067/451/164/non_2x/pixel-art-red-heart-icon-pixelated-heart-symbol-with-black-outline-love-sign-isolated-on-white-background-pixelated-red-heart-icon-valentine-icon-transparent-illustration-vector.jpg">
 </head>
 
 <body class="min-h-screen flex items-center justify-center font-['Press_Start_2P'] overflow-hidden bg-repeat" style="
@@ -85,9 +87,14 @@
 
             const messageDiv = document.createElement('div');
             messageDiv.className = 'mt-4';
-            messageDiv.innerHTML =
-                '<p class="text-xl text-gray-700">Us in another universe</p>';
-
+            messageDiv.innerHTML = `
+        <p class="text-xl text-gray-700 mb-4">Us in another universe</p>
+        <a href="next.html"
+           class="inline-block mt-2 px-6 py-3 bg-pink-500 text-white text-sm border-4 border-black rounded-lg
+                  hover:bg-pink-600 transition">
+            Click here for more
+        </a>
+    `;
             buttonsDiv.parentNode.appendChild(messageDiv);
         }
 
